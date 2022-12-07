@@ -1,12 +1,10 @@
 import React from 'react';
-import Frutas from './Frutas';
-import Contador from './Contador';
+import Clientes from './Clientes';
 
 const Main = () => {
   return (
     <>
-      <Frutas></Frutas>
-      <Contador></Contador>
+      <Clientes></Clientes>
     </>
   );
 };

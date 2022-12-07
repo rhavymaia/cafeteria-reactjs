@@ -5,11 +5,13 @@ const Contador = () => {
 
   const [countTime, setCountTime] = useState(0);
 
-  useEffect(() => {
+  const contador = () => {
     setTimeout(() => {
       setCountTime(countTime + 1);
     }, 1000);
-  }, [countTime]);
+  };
+
+  useEffect(contador, [countTime, nome]);
 
   const handleChange = (event) => {
     const nomeChange = event.target.value;
