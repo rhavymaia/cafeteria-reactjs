@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 
 const Clientes = () => {
   const [nome, setNome] = useState('');
 
+  const [clientes, setClientes] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3030/clientes', { method: 'GET' })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        // Resultado da busca.
+        setClientes(data);
+      })
+      .catch((error) => {});
+  }, []);
+
   const handleChange = (event) => {
     setNome(event.target.value);
-    console.log(nome);
   };
 
   const handleClick = (event) => {
-    // fetch('http://localhost:3030/clientes', {})
-    //   .then((response) => {
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((error) => {
-    //     console.log('Resposta com insucesso!');
-    //   })
-    //   .finally();
-
-    const cliente = {
-      nome: 'Euridyce Karla',
-      email: 'ek@mail.com',
-      nascimento: '2022-01-01',
-    };
-
-    fetch('http://localhost:3030/clientes', {
-      method: 'POST',
-      body: JSON.stringify(cliente),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
+    fetch(`http://localhost:3030/clientes?q=${nome}`, { method: 'GET' })
       .then((response) => {
-        console.log('Cadastrou!');
+        return response.json();
+      })
+      .then((data) => {
+        setClientes(data);
       })
       .catch((error) => {
-        console.log('Falhou!');
-      });
+        console.log('Resposta com insucesso!');
+      })
+      .finally();
   };
 
   return (
@@ -52,6 +46,29 @@ const Clientes = () => {
           Buscar
         </Button>
       </form>
+
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Nascimento</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientes.map((cliente) => {
+            return (
+              <tr key={cliente.id}>
+                <td>{cliente.id}</td>
+                <td>{cliente.nome}</td>
+                <td>{cliente.email}</td>
+                <td>{cliente.nascimento}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
   );
 };
