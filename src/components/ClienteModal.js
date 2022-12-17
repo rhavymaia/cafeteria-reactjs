@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import api from '../services/api';
 
-const ClienteModal = ({ show, setShow, handleClose }) => {
+const ClienteModal = ({ show, handleShow, clientes, setClientes }) => {
   const [cliente, setCliente] = useState({});
 
   const handleChangeCadastrar = (event) => {
@@ -11,41 +12,15 @@ const ClienteModal = ({ show, setShow, handleClose }) => {
     console.log(cliente);
   };
 
-  async function createCliente() {
-    let response = await fetch('http://localhost:3030/clientes', {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
-      body: JSON.stringify(cliente),
-    })
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        console.log('Danou-se');
-      });
-    let clienteData = await response.json();
-    return clienteData;
-  }
+  const handleClickCadastrar = async (event) => {
+    const data = await api.create(cliente);
 
-  const handleClickCadastrar = (event) => {
-    console.log('Cadastrar');
-
-    const temp = createCliente();
-
-    // Cliente será enviado para o cadastro.
-
-    console.log(
-      temp.then((value) => {
-        console.log(value);
-      }),
-    );
+    setClientes([...clientes, data]);
   };
 
   return (
     <div>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleShow}>
         <Form>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
@@ -83,7 +58,7 @@ const ClienteModal = ({ show, setShow, handleClose }) => {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={handleShow}>
               Limpar
             </Button>
             <Button variant="primary" onClick={handleClickCadastrar}>
