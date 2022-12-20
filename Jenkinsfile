@@ -16,7 +16,7 @@ pipeline {
         stage("Deploy") {
             steps {
                 sh "rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
-                sh "cp -r /home/pweb2/Web/gcsi/jenkins/jenkins_home/workspace/cafeteria-reactjs/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
+                sh "cp -r /var/jenkins_home/workspace/cafeteria-reactjs/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
             }
         }
     }
