@@ -12,6 +12,13 @@ pipeline {
                 sh 'npm run build'
             }
         }
+
+        stage("Deploy") {
+            steps {
+                sh "sudo rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
+                sh "sudo cp -r /home/pweb2/Web/gcsi/jenkins/jenkins_home/workspace/cafeteria-reactjs/build /home/pweb2/Web/gcsi/loaderbalancer/build"
+            }
+        }
     }
 }
 
