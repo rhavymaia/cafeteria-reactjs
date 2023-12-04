@@ -12,7 +12,7 @@ pipeline {
                 sh 'CI=false npm run build'
             }
         }
-docker cp 8cab8fde683f:/file/path/within/container /host/path/target
+
         stage("Deploy") {
             steps {
                 // sh "rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
