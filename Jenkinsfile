@@ -12,12 +12,12 @@ pipeline {
                 sh 'CI=false npm run build'
             }
         }
-
+docker cp 8cab8fde683f:/file/path/within/container /host/path/target
         stage("Deploy") {
             steps {
-                sh "rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
-                sh "mkdir /home/pweb2/Web/gcsi/loaderbalancer/build"
-                sh "cp -r /var/jenkins_home/workspace/cafeteria-reactjs/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
+                // sh "rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
+                // sh "mkdir /home/pweb2/Web/gcsi/loaderbalancer/build"
+                sh "docker cp 8cab8fde683f:/var/jenkins_home/workspace/cafeteria-reactjs/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
             }
         }
     }
