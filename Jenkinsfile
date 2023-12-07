@@ -17,7 +17,7 @@ pipeline {
             steps {
                 // sh "rm -rf /home/pweb2/Web/gcsi/loaderbalancer/build"
                 // sh "mkdir /home/pweb2/Web/gcsi/loaderbalancer/build"
-                sh "docker cp 8cab8fde683f:/var/jenkins_home/workspace/cafeteria-reactjs/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
+                sh "docker cp 8cab8fde683f:/var/jenkins_home/workspace/cafeteria/build/ /home/pweb2/Web/gcsi/loaderbalancer/build/"
             }
         }
     }
